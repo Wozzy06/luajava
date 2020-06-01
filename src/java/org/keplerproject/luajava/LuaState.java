@@ -33,50 +33,50 @@ package org.keplerproject.luajava;
  */
 public class LuaState
 {
-  private final static String LUAJAVA_LIB = "luajava-1.1";
+  private static final String LUAJAVA_LIB = "luajava-1.1";
 
-  final public static Integer LUA_GLOBALSINDEX  = new Integer(-10002);
-  final public static Integer LUA_REGISTRYINDEX = new Integer(-10000);
+  public static final Integer LUA_GLOBALSINDEX  = Integer.valueOf(-10002);
+  public static final Integer LUA_REGISTRYINDEX = Integer.valueOf(-10000);
 
-  final public static Integer LUA_TNONE     = new Integer(-1);
-  final public static Integer LUA_TNIL      = new Integer(0);
-  final public static Integer LUA_TBOOLEAN  = new Integer(1);
-  final public static Integer LUA_TLIGHTUSERDATA = new Integer(2);
-  final public static Integer LUA_TNUMBER   = new Integer(3);
-  final public static Integer LUA_TSTRING   = new Integer(4);
-  final public static Integer LUA_TTABLE    = new Integer(5);
-  final public static Integer LUA_TFUNCTION = new Integer(6);
-  final public static Integer LUA_TUSERDATA = new Integer(7);
-  final public static Integer LUA_TTHREAD   = new Integer(8);
+  public static final Integer LUA_TNONE     = Integer.valueOf(-1);
+  public static final Integer LUA_TNIL      = Integer.valueOf(0);
+  public static final Integer LUA_TBOOLEAN  = Integer.valueOf(1);
+  public static final Integer LUA_TLIGHTUSERDATA = Integer.valueOf(2);
+  public static final Integer LUA_TNUMBER   = Integer.valueOf(3);
+  public static final Integer LUA_TSTRING   = Integer.valueOf(4);
+  public static final Integer LUA_TTABLE    = Integer.valueOf(5);
+  public static final Integer LUA_TFUNCTION = Integer.valueOf(6);
+  public static final Integer LUA_TUSERDATA = Integer.valueOf(7);
+  public static final Integer LUA_TTHREAD   = Integer.valueOf(8);
 
   /**
    * Specifies that an unspecified (multiple) number of return arguments
    * will be returned by a call.
    */
-  final public static Integer LUA_MULTRET   = new Integer(-1);
+  public static final Integer LUA_MULTRET   = Integer.valueOf(-1);
   
   /*
    * error codes for `lua_load' and `lua_pcall'
    */
 
-  final public static Integer LUA_YIELD    = new Integer(1);
+  public static final Integer LUA_YIELD    = Integer.valueOf(1);
   
   /** a runtime error. */
-  final public static Integer LUA_ERRRUN     = new Integer(2);
+  final public static Integer LUA_ERRRUN     = Integer.valueOf(2);
   
   /** syntax error during pre-compilation. */
-  final public static Integer LUA_ERRSYNTAX = new Integer(3);
+  public static final Integer LUA_ERRSYNTAX = Integer.valueOf(3);
   
   /**
    * memory allocation error. For such errors, Lua does not call 
    * the error handler function.
    */
-  final public static Integer LUA_ERRMEM    = new Integer(4);
+  public static final Integer LUA_ERRMEM    = Integer.valueOf(4);
   
   /**
    * error while running the error handler function.
    */
-  final public static Integer LUA_ERRERR    = new Integer(5);
+  public static final Integer LUA_ERRERR    = Integer.valueOf(5);
 
   /**
    * Opens the library containing the luajava API
@@ -94,7 +94,7 @@ public class LuaState
    * Constructor to instance a new LuaState and initialize it with LuaJava's functions
    * @param stateId
    */
-  protected LuaState(int stateId)
+  protected LuaState(final int stateId)
   {
     luaState = _open();
     luajava_open(luaState, stateId);
@@ -105,7 +105,7 @@ public class LuaState
    * Receives a existing state and initializes it
    * @param luaState
    */
-  protected LuaState(CPtr luaState)
+  protected LuaState(final CPtr luaState)
   {
     this.luaState = luaState;
     this.stateId = LuaStateFactory.insertLuaState(this);
@@ -210,14 +210,14 @@ public class LuaState
   private synchronized native int _status(CPtr ptr);
   
   // Gargabe Collection Functions
-  final public static Integer LUA_GCSTOP       = new Integer(0);
-  final public static Integer LUA_GCRESTART    = new Integer(1);
-  final public static Integer LUA_GCCOLLECT    = new Integer(2);
-  final public static Integer LUA_GCCOUNT      = new Integer(3);
-  final public static Integer LUA_GCCOUNTB     = new Integer(4);
-  final public static Integer LUA_GCSTEP       = new Integer(5);
-  final public static Integer LUA_GCSETPAUSE   = new Integer(6);
-  final public static Integer LUA_GCSETSTEPMUL = new Integer(7);
+  public static final Integer LUA_GCSTOP       = Integer.valueOf(0);
+  public static final Integer LUA_GCRESTART    = Integer.valueOf(1);
+  public static final Integer LUA_GCCOLLECT    = Integer.valueOf(2);
+  public static final Integer LUA_GCCOUNT      = Integer.valueOf(3);
+  public static final Integer LUA_GCCOUNTB     = Integer.valueOf(4);
+  public static final Integer LUA_GCSTEP       = Integer.valueOf(5);
+  public static final Integer LUA_GCSETPAUSE   = Integer.valueOf(6);
+  public static final Integer LUA_GCSETSTEPMUL = Integer.valueOf(7);
   private synchronized native int  _gc(CPtr ptr, int what, int data);
 
   // Miscellaneous Functions
@@ -309,154 +309,154 @@ public class LuaState
     return _getTop(luaState);
   }
 
-  public void setTop(int idx)
+  public void setTop(final int idx)
   {
     _setTop(luaState, idx);
   }
 
-  public void pushValue(int idx)
+  public void pushValue(final int idx)
   {
     _pushValue(luaState, idx);
   }
 
-  public void remove(int idx)
+  public void remove(final int idx)
   {
     _remove(luaState, idx);
   }
 
-  public void insert(int idx)
+  public void insert(final int idx)
   {
     _insert(luaState, idx);
   }
 
-  public void replace(int idx)
+  public void replace(final int idx)
   {
     _replace(luaState, idx);
   }
 
-  public int checkStack(int sz)
+  public int checkStack(final int sz)
   {
     return _checkStack(luaState, sz);
   }
   
-  public void xmove(LuaState to, int n)
+  public void xmove(final LuaState to, final int n)
   {
     _xmove(luaState, to.luaState, n);
   }
 
   // ACCESS FUNCTION
 
-  public boolean isNumber(int idx)
+  public boolean isNumber(final int idx)
   {
     return (_isNumber(luaState, idx)!=0);
   }
 
-  public boolean isString(int idx)
+  public boolean isString(final int idx)
   {
     return (_isString(luaState, idx)!=0);
   }
 
-  public boolean isFunction(int idx)
+  public boolean isFunction(final int idx)
   {
     return (_isFunction(luaState, idx)!=0);
   }
   
-  public boolean isCFunction(int idx)
+  public boolean isCFunction(final int idx)
   {
     return (_isCFunction(luaState, idx)!=0);
   }
 
-  public boolean isUserdata(int idx)
+  public boolean isUserdata(final int idx)
   {
     return (_isUserdata(luaState, idx)!=0);
   }
 
-  public boolean isTable(int idx)
+  public boolean isTable(final int idx)
   {
     return (_isTable(luaState, idx)!=0);
   }
 
-  public boolean isBoolean(int idx)
+  public boolean isBoolean(final int idx)
   {
     return (_isBoolean(luaState, idx)!=0);
   }
   
-  public boolean isNil(int idx)
+  public boolean isNil(final int idx)
   {
 	  return (_isNil(luaState, idx)!=0);
   }
   
-  public boolean isThread(int idx)
+  public boolean isThread(final int idx)
   {
 	  return (_isThread(luaState, idx)!=0);
   }
   
-  public boolean isNone(int idx)
+  public boolean isNone(final int idx)
   {
 	  return (_isNone(luaState, idx)!=0);
   }
   
-  public boolean isNoneOrNil(int idx)
+  public boolean isNoneOrNil(final int idx)
   {
 	  return (_isNoneOrNil(luaState, idx)!=0);
   }
 
-  public int type(int idx)
+  public int type(final int idx)
   {
     return _type(luaState, idx);
   }
 
-  public String typeName(int tp)
+  public String typeName(final int tp)
   {
-  	return _typeName(luaState, tp);
+  	return _typeName(final luaState, tp);
   }
 
-  public int equal(int idx1, int idx2)
+  public int equal(final int idx1, final int idx2)
   {
     return _equal(luaState, idx1, idx2);
   }
 
-  public int rawequal(int idx1, int idx2)
+  public int rawequal(final int idx1, final int idx2)
   {
     return _rawequal(luaState, idx1, idx2);
   }
 
-  public int lessthan(int idx1, int idx2)
+  public int lessthan(final int idx1, final int idx2)
   {
     return _lessthan(luaState, idx1, idx2);
   }
 
-  public double toNumber(int idx)
+  public double toNumber(final int idx)
   {
     return _toNumber(luaState, idx);
   }
 
-  public int toInteger(int idx)
+  public int toInteger(final int idx)
   {
 	  return _toInteger(luaState, idx);
   }
   
-  public boolean toBoolean(int idx)
+  public boolean toBoolean(final int idx)
   {
     return (_toBoolean(luaState, idx)!=0);
   }
 
-  public String toString(int idx)
+  public String toString(final int idx)
   {
     return _toString(luaState, idx);
   }
   
-  public int strLen(int idx)
+  public int strLen(final int idx)
   {
     return _strlen(luaState, idx);
   }
   
-  public int objLen(int idx)
+  public int objLen(final int idx)
   {
 	  return _objlen(luaState, idx);
   }
 
-  public LuaState toThread(int idx)
+  public LuaState toThread(final int idx)
   {
     return new LuaState(_toThread(luaState, idx));
   }
@@ -468,17 +468,17 @@ public class LuaState
     _pushNil(luaState);
   }
 
-  public void pushNumber(double db)
+  public void pushNumber(final double db)
   {
     _pushNumber(luaState, db);
   }
   
-  public void pushInteger(int integer)
+  public void pushInteger(final int integer)
   {
 	  _pushInteger(luaState, integer);
   }
 
-  public void pushString(String str)
+  public void pushString(final String str)
   {
     if (str == null)
       _pushNil(luaState);
@@ -486,7 +486,7 @@ public class LuaState
       _pushString(luaState, str);
   }
 
-  public void pushString(byte[] bytes)
+  public void pushString(final byte[] bytes)
   {
     if (bytes == null)
       _pushNil(luaState);
@@ -494,34 +494,34 @@ public class LuaState
       _pushString(luaState, bytes, bytes.length);
   }
   
-  public void pushBoolean(boolean bool)
+  public void pushBoolean(final boolean bool)
   {
     _pushBoolean(luaState, bool ? 1 : 0);
   }
 
   // GET FUNCTIONS
 
-  public void getTable(int idx)
+  public void getTable(final int idx)
   {
     _getTable(luaState, idx);
   }
   
-  public void getField(int idx, String k)
+  public void getField(final int idx, final String k)
   {
 	  _getField(luaState, idx, k);
   }
 
-  public void rawGet(int idx)
+  public void rawGet(final int idx)
   {
     _rawGet(luaState, idx);
   }
 
-  public void rawGetI(int idx, int n)
+  public void rawGetI(final int idx, final int n)
   {
     _rawGetI(luaState, idx, n);
   }
   
-  public void createTable(int narr, int nrec)
+  public void createTable(final int narr, final int nrec)
   {
 	  _createTable(luaState, narr, nrec);
   }
@@ -532,67 +532,67 @@ public class LuaState
   }
 
   // if returns 0, there is no metatable
-  public int getMetaTable(int idx)
+  public int getMetaTable(final int idx)
   {
     return _getMetaTable(luaState, idx);
   }
 
-  public void getFEnv(int idx)
+  public void getFEnv(final int idx)
   {
     _getFEnv(luaState, idx);
   }
 
   // SET FUNCTIONS
   
-  public void setTable(int idx)
+  public void setTable(final int idx)
   {
     _setTable(luaState, idx);
   }
   
-  public void setField(int idx, String k)
+  public void setField(final int idx, final String k)
   {
 	  _setField(luaState, idx, k);
   }
 
-  public void rawSet(int idx)
+  public void rawSet(final int idx)
   {
     _rawSet(luaState, idx);
   }
 
-  public void rawSetI(int idx, int n)
+  public void rawSetI(final int idx, final int n)
   {
     _rawSetI(luaState, idx, n);
   }
 
   // if returns 0, cannot set the metatable to the given object
-  public int setMetaTable(int idx)
+  public int setMetaTable(final int idx)
   {
     return _setMetaTable(luaState, idx);
   }
 
   // if object is not a function returns 0
-  public int setFEnv(int idx)
+  public int setFEnv(final int idx)
   {
     return _setFEnv(luaState, idx);
   }
 
-  public void call(int nArgs, int nResults)
+  public void call(final int nArgs, final int nResults)
   {
     _call(luaState, nArgs, nResults);
   }
 
   // returns 0 if ok of one of the error codes defined
-  public int pcall(int nArgs, int nResults, int errFunc)
+  public int pcall(final int nArgs, final int nResults, final int errFunc)
   {
     return _pcall(luaState, nArgs, nResults, errFunc);
   }
 
-  public int yield(int nResults)
+  public int yield(final int nResults)
   {
   	return _yield(luaState, nResults);
   }
 
-  public int resume(int nArgs)
+  public int resume(final int nArgs)
   {
   	return _resume(luaState, nArgs);
   }
@@ -602,7 +602,7 @@ public class LuaState
 	  return _status(luaState);
   }
   
-  public int gc(int what, int data)
+  public int gc(final int what, final int data)
   {
     return _gc(luaState, what, data);
   }
@@ -612,7 +612,7 @@ public class LuaState
     return _getGcCount(luaState);
   }
   
-  public int next(int idx)
+  public int next(final int idx)
   {
   	return _next(luaState, idx);
   }
@@ -622,7 +622,7 @@ public class LuaState
   	return _error(luaState);
   }
 
-  public void concat(int n)
+  public void concat(final int n)
   {
   	_concat(luaState, n);
   }
@@ -630,158 +630,158 @@ public class LuaState
 
   // FUNCTION FROM lauxlib
   // returns 0 if ok
-  public int LdoFile(String fileName)
+  public int LdoFile(final String fileName)
   {
     return _LdoFile(luaState, fileName);
   }
 
   // returns 0 if ok
-  public int LdoString(String str)
+  public int LdoString(final String str)
   {
     return _LdoString(luaState, str);
   }
     
-  public int LgetMetaField(int obj, String e)
+  public int LgetMetaField(final int obj, final String e)
   {
     return _LgetMetaField(luaState, obj, e);
   }
   
-  public int LcallMeta(int obj, String e)
+  public int LcallMeta(final int obj, final String e)
   {
     return _LcallMeta(luaState, obj, e);
   }
   
-  public int Ltyperror(int nArg, String tName)
+  public int Ltyperror(final int nArg, final String tName)
   {
     return _Ltyperror(luaState, nArg, tName);
   }
   
-  public int LargError(int numArg, String extraMsg)
+  public int LargError(final int numArg, final String extraMsg)
   {
     return _LargError(luaState, numArg, extraMsg);
   }
   
-  public String LcheckString(int numArg)
+  public String LcheckString(final int numArg)
   {
     return _LcheckString(luaState, numArg);
   }
   
-  public String LoptString(int numArg, String def)
+  public String LoptString(final int numArg, final String def)
   {
     return _LoptString(luaState, numArg, def);
   }
   
-  public double LcheckNumber(int numArg)
+  public double LcheckNumber(final int numArg)
   {
     return _LcheckNumber(luaState, numArg);
   }
   
-  public double LoptNumber(int numArg, double def)
+  public double LoptNumber(final int numArg, final double def)
   {
     return _LoptNumber(luaState, numArg, def);
   }
   
-  public int LcheckInteger(int numArg)
+  public int LcheckInteger(final int numArg)
   {
 	  return _LcheckInteger(luaState, numArg);
   }
   
-  public int LoptInteger(int numArg, int def)
+  public int LoptInteger(final int numArg, final int def)
   {
 	  return _LoptInteger(luaState, numArg, def);
   }
   
-  public void LcheckStack(int sz, String msg)
+  public void LcheckStack(final int sz, final String msg)
   {
     _LcheckStack(luaState, sz, msg);
   }
   
-  public void LcheckType(int nArg, int t)
+  public void LcheckType(final int nArg, final int t)
   {
     _LcheckType(luaState, nArg, t);
   }
   
-  public void LcheckAny(int nArg)
+  public void LcheckAny(final int nArg)
   {
     _LcheckAny(luaState, nArg);
   }
   
-  public int LnewMetatable(String tName)
+  public int LnewMetatable(final String tName)
   {
     return _LnewMetatable(luaState, tName);
   }
   
-  public void LgetMetatable(String tName)
+  public void LgetMetatable(final String tName)
   {
     _LgetMetatable(luaState, tName);
   }
   
-  public void Lwhere(int lvl)
+  public void Lwhere(final int lvl)
   {
     _Lwhere(luaState, lvl);
   }
   
-  public int Lref(int t)
+  public int Lref(final int t)
   {
     return _Lref(luaState, t);
   }
   
-  public void LunRef(int t, int ref)
+  public void LunRef(final int t, final int ref)
   {
     _LunRef(luaState, t, ref);
   }
   
-  public int LgetN(int t)
+  public int LgetN(final int t)
   {
     return _LgetN(luaState, t);
   }
   
-  public void LsetN(int t, int n)
+  public void LsetN(final int t, final int n)
   {
     _LsetN(luaState, t, n);
   }
   
-  public int LloadFile(String fileName)
+  public int LloadFile(final String fileName)
   {
     return _LloadFile(luaState, fileName);
   }
   
-  public int LloadString(String s)
+  public int LloadString(final String s)
   {
     return _LloadString(luaState, s);
   }
   
-  public int LloadBuffer(byte[] buff, String name)
+  public int LloadBuffer(final byte[] buff, final String name)
   {
     return _LloadBuffer(luaState, buff, buff.length, name);
   }
   
-  public String Lgsub(String s, String p, String r)
+  public String Lgsub(final String s, final String p, final String r)
   {
 	  return _Lgsub(luaState, s, p, r);
   }
   
-  public String LfindTable(int idx, String fname, int szhint)
+  public String LfindTable(final int idx, final String fname, final int szhint)
   {
 	  return _LfindTable(luaState, idx, fname, szhint);
   }
   
   //IMPLEMENTED C MACROS
 
-  public void pop(int n)
+  public void pop(final int n)
   {
     //setTop(- (n) - 1);
 	_pop(luaState, n);
   }
 
-  public synchronized void getGlobal(String global)
+  public synchronized void getGlobal(final String global)
   {
 //    pushString(global);
 //    getTable(LUA_GLOBALSINDEX.intValue());
     _getGlobal(luaState, global);
   }
 
-  public synchronized void setGlobal(String name)
+  public synchronized void setGlobal(final String name)
   {
     //pushString(name);
     //insert(-2);
@@ -887,7 +887,7 @@ public class LuaState
    * @return Object
    * @throws LuaException if the lua object does not represent a java object.
    */
-  public Object getObjectFromUserdata(int idx) throws LuaException
+  public Object getObjectFromUserdata(final int idx) throws LuaException
   {
     return _getObjectFromUserdata(luaState, idx);
   }
@@ -897,7 +897,7 @@ public class LuaState
    * @param idx index of the lua stack
    * @return boolean
    */
-  public boolean isObject(int idx)
+  public boolean isObject(final int idx)
   {
     return _isObject(luaState, idx);
   }
@@ -908,12 +908,12 @@ public class LuaState
    * be represented by a lua type. Eg: java.lang.String could be a lua string.
    * @param obj Object to be pushed into lua
    */
-  public void pushJavaObject(Object obj)
+  public void pushJavaObject(final Object obj)
   {
     _pushJavaObject(luaState, obj);
   }
   
-  public void pushJavaArray(Object obj) throws LuaException
+  public void pushJavaArray(final Object obj) throws LuaException
   {
 	  if (!obj.getClass().isArray())
 		  throw new LuaException("Object is not an array.");
@@ -925,7 +925,7 @@ public class LuaState
    * Pushes a JavaFunction into the state stack
    * @param func
    */
-  public void pushJavaFunction(JavaFunction func) throws LuaException
+  public void pushJavaFunction(final JavaFunction func) throws LuaException
   {
     _pushJavaFunction(luaState, func);
   }
@@ -935,7 +935,7 @@ public class LuaState
    * @param idx index of the lua stack
    * @return boolean
    */
-  public boolean isJavaFunction(int idx)
+  public boolean isJavaFunction(final int idx)
   {
     return _isJavaFunction(luaState, idx);
   }
@@ -946,7 +946,7 @@ public class LuaState
    * pushes the java object.
    * @param obj
    */
-  public void pushObjectValue(Object obj) throws LuaException
+  public void pushObjectValue(final Object obj) throws LuaException
   {
     if (obj == null)
     {
@@ -954,7 +954,7 @@ public class LuaState
     }
     else if (obj instanceof Boolean)
     {
-      Boolean bool = (Boolean) obj;
+      final Boolean bool = (Boolean) obj;
       pushBoolean(bool.booleanValue());
     }
     else if (obj instanceof Number)
@@ -967,12 +967,12 @@ public class LuaState
     }
     else if (obj instanceof JavaFunction)
     {
-      JavaFunction func = (JavaFunction) obj;
+      final JavaFunction func = (JavaFunction) obj;
       pushJavaFunction(func);
     }
     else if (obj instanceof LuaObject)
     {
-      LuaObject ref = (LuaObject) obj;
+      final LuaObject ref = (LuaObject) obj;
       ref.push();
     }
     else if (obj instanceof byte[])
@@ -995,47 +995,41 @@ public class LuaState
    * @param idx Index in the Lua Stack
    * @return Java object equivalent to the Lua one
    */
-	public synchronized Object toJavaObject( int idx ) throws LuaException
+	public synchronized Object toJavaObject( final int idx ) throws LuaException
 	{
-		Object obj = null;
 
 		if (isBoolean(idx))
 		{
-			obj = new Boolean(toBoolean(idx));
+			return new Boolean(toBoolean(idx));
 		}
 		else if (type(idx) == LuaState.LUA_TSTRING.intValue())
 		{
-			obj = toString(idx);
+			return toString(idx);
 		}
 		else if (isFunction(idx))
 		{
-			obj = getLuaObject(idx);
+			return getLuaObject(idx);
 		}
 		else if (isTable(idx))
 		{
-			obj = getLuaObject(idx);
+			return getLuaObject(idx);
 		}
 		else if (type(idx) == LuaState.LUA_TNUMBER.intValue())
 		{
-				obj = new Double(toNumber(idx));
+			return new Double(toNumber(idx));
 		}
 		else if (isUserdata(idx))
 		{
 			if (isObject(idx))
 			{
-				obj = getObjectFromUserdata(idx);
+				return getObjectFromUserdata(idx);
 			}
 			else
 			{
-				obj = getLuaObject(idx);
+				return getLuaObject(idx);
 			}
 		}
-		else if (isNil(idx))
-		{
-			obj = null;
-		}
-
-		return obj;
+		return null;
 	}
 
 	/**
@@ -1043,7 +1037,7 @@ public class LuaState
 	 * @param globalName
 	 * @return LuaObject
 	 */
-	public LuaObject getLuaObject(String globalName)
+	public LuaObject getLuaObject(final String globalName)
 	{
 		return new LuaObject(this, globalName);
 	}
@@ -1055,7 +1049,7 @@ public class LuaState
 	 * @return LuaObject
 	 * @throws LuaException if parent is not a table or userdata
 	 */
-	public LuaObject getLuaObject(LuaObject parent, String name)
+	public LuaObject getLuaObject(final LuaObject parent, final String name)
 		throws LuaException
 	{
 		if (parent.L.getCPtrPeer() != luaState.getPeer())
@@ -1071,7 +1065,7 @@ public class LuaState
 	 * @return LuaObject
 	 * @throws LuaException When the parent object isn't a Table or Userdata
 	 */
-	public LuaObject getLuaObject(LuaObject parent, Number name)
+	public LuaObject getLuaObject(final LuaObject parent, final Number name)
 		throws LuaException
 	{
 		if (parent.L.getCPtrPeer() != luaState.getPeer())
@@ -1087,7 +1081,7 @@ public class LuaState
 	 * @return LuaObject
 	 * @throws LuaException When the parent object isn't a Table or Userdata
 	 */
-	public LuaObject getLuaObject(LuaObject parent, LuaObject name)
+	public LuaObject getLuaObject(final LuaObject parent, final LuaObject name)
 		throws LuaException
 	{
 	  if (parent.getLuaState().getCPtrPeer() != luaState.getPeer() ||
@@ -1103,7 +1097,7 @@ public class LuaState
 	 * @param index position on the stack
 	 * @return LuaObject
 	 */
-	public LuaObject getLuaObject(int index)
+	public LuaObject getLuaObject(final int index)
 	{
 		return new LuaObject(this, index);
 	}
@@ -1117,7 +1111,7 @@ public class LuaState
 	 * @param retType type to convert to
 	 * @return The converted number
 	 */
-	public static Number convertLuaNumber(Double db, Class retType)
+	public static Number convertLuaNumber(final Double db, final Class retType)
 	{
 	  // checks if retType is a primitive type
     if (retType.isPrimitive())
