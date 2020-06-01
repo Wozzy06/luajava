@@ -297,7 +297,7 @@ public class LuaState
 
   public LuaState newThread()
   {
-  	LuaState l = new LuaState(_newthread(luaState));
+  	final LuaState l = new LuaState(_newthread(luaState));
   	LuaStateFactory.insertLuaState(l);
     return l;
   }
@@ -1000,7 +1000,7 @@ public class LuaState
 
 		if (isBoolean(idx))
 		{
-			return new Boolean(toBoolean(idx));
+			return Boolean.valueOf(toBoolean(idx));
 		}
 		else if (type(idx) == LuaState.LUA_TSTRING.intValue())
 		{
@@ -1016,7 +1016,7 @@ public class LuaState
 		}
 		else if (type(idx) == LuaState.LUA_TNUMBER.intValue())
 		{
-			return new Double(toNumber(idx));
+			return Double.valueOf(toNumber(idx));
 		}
 		else if (isUserdata(idx))
 		{
@@ -1118,15 +1118,15 @@ public class LuaState
     {
       if (retType == Integer.TYPE)
       {
-        return new Integer(db.intValue());
+        return Integer.valueOf(db.intValue());
       }
       else if (retType == Long.TYPE)
       {
-        return new Long(db.longValue());
+        return Long.valueOf(db.longValue());
       }
       else if (retType == Float.TYPE)
       {
-        return new Float(db.floatValue());
+        return Float.valueOf(db.floatValue());
       }
       else if (retType == Double.TYPE)
       {
@@ -1134,11 +1134,11 @@ public class LuaState
       }
       else if (retType == Byte.TYPE)
       {
-        return new Byte(db.byteValue());
+        return Byte.valueOf(db.byteValue());
       }
       else if (retType == Short.TYPE)
       {
-        return new Short(db.shortValue());
+        return Short.valueOf(db.shortValue());
       }
     }
     else if (retType.isAssignableFrom(Number.class))
@@ -1146,15 +1146,15 @@ public class LuaState
       // Checks all possibilities of number types
       if (retType.isAssignableFrom(Integer.class))
       {
-        return new Integer(db.intValue());
+        return Integer.valueOf(db.intValue());
       }
       else if (retType.isAssignableFrom(Long.class))
       {
-        return new Long(db.longValue());
+        return Long.valueOf(db.longValue());
       }
       else if (retType.isAssignableFrom(Float.class))
       {
-        return new Float(db.floatValue());
+        return Float.valueOf(db.floatValue());
       }
       else if (retType.isAssignableFrom(Double.class))
       {
@@ -1162,11 +1162,11 @@ public class LuaState
       }
       else if (retType.isAssignableFrom(Byte.class))
       {
-        return new Byte(db.byteValue());
+        return Byte.valueOf(db.byteValue());
       }
       else if (retType.isAssignableFrom(Short.class))
       {
-        return new Short(db.shortValue());
+        return Short.valueOf(db.shortValue());
       }
     }
     
